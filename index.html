@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #ffffff;
+      background-color: #f4f4f4;
       color: #333;
       margin: 0;
       padding: 0;
@@ -15,82 +15,139 @@
     }
     .hero-image {
       width: 100%;
-      height: auto;
+      max-height: 500px; /* Limita altura pra não ficar gigante demais em telas grandes */
+      object-fit: cover;
       display: block;
     }
     .content {
       max-width: 700px;
       margin: 0 auto;
-      padding: 30px 20px;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
     }
     h1 {
-      color: #d32f2f; /* Vermelho urgente */
-      font-size: 32px;
-      font-weight: 800; /* Bem grosso */
+      color: #d32f2f;
+      font-size: 28px;
+      font-weight: 800;
       text-align: center;
-      margin-bottom: 30px;
-      text-transform: uppercase;
-      letter-spacing: -1px;
+      margin: 20px 0;
     }
     p {
-      font-size: 20px; /* Texto maior */
-      font-weight: 600; /* Letra mais grossa */
-      margin-bottom: 25px;
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 15px;
       text-align: justify;
-      color: #222;
+    }
+    
+    /* Área de Doação */
+    .donation-box {
+      background: #e8f5e9;
+      border: 2px solid #27ae60;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+      text-align: center;
+    }
+    .donation-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #27ae60;
+      margin-bottom: 15px;
+    }
+    .amount-options {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+    .amount-btn {
+      background: white;
+      border: 1px solid #27ae60;
+      color: #27ae60;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+    .amount-btn:hover, .amount-btn.active {
+      background: #27ae60;
+      color: white;
+    }
+    .custom-amount {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      text-align: center;
     }
     .btn-help {
       display: block;
       width: 100%;
-      max-width: 350px;
-      margin: 40px auto;
       background-color: #27ae60;
       color: white;
-      padding: 20px;
-      text-align: center;
+      padding: 18px;
       text-decoration: none;
-      border-radius: 50px;
+      border-radius: 8px;
       font-weight: 800;
-      font-size: 22px;
-      box-shadow: 0 6px 15px rgba(39, 174, 96, 0.4);
-      transition: transform 0.2s;
+      font-size: 20px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
     }
     .btn-help:hover {
       background-color: #219150;
-      transform: scale(1.05);
     }
   </style>
 </head>
 <body>
 
-  <!-- Imagem principal -->
+  <!-- Imagem bem grande -->
   <img src="file_000000003a78820e8423b35f675465ab.png" alt="Tuti no hospital" class="hero-image">
 
   <div class="content">
     <h1>Ajude o Tuti a voltar para casa 🐾❤️</h1>
 
-    <p>Oi, pessoal. Eu sou o Tuti, um Bulldog Francês muito amado e querido pela minha família. ❤️</p>
+    <p>Oi, pessoal. Eu sou o Tuti. Estou entubado, sedado e lutando pela minha vida. Os custos da internação são de R$ 3.000 por dia, sem contar medicamentos e exames.</p>
 
-    <p>Nos últimos dias, minha família passou por um momento muito difícil e inesperado. Eu comecei a apresentar um quadro grave de saúde e precisei ser internado às pressas. Meu estado se agravou e, neste momento, estou entubado e sedado, recebendo cuidados intensivos e lutando pela minha vida.</p>
+    <!-- Caixa de Doação -->
+    <div class="donation-box">
+      <div class="donation-title">Faça sua doação agora</div>
+      
+      <div class="amount-options">
+        <button class="amount-btn">R$ 20</button>
+        <button class="amount-btn">R$ 50</button>
+        <button class="amount-btn">R$ 100</button>
+        <button class="amount-btn">R$ 200</button>
+      </div>
 
-    <p>Ainda não temos previsão de alta. Minha família está fazendo tudo o que pode para que eu tenha acesso a todo o tratamento necessário, mas os custos estão ficando muito altos.</p>
+      <input type="number" placeholder="Ou digite outro valor (R$)" class="custom-amount">
 
-    <p>A diária da internação hospitalar é de aproximadamente R$ 3.000, além dos gastos com medicamentos, insumos, anestesias e todos os procedimentos necessários durante a internação. O transporte em ambulância veterinária também gera custos. E, quando eu finalmente puder sair do hospital, ainda precisarei de acompanhamento veterinário e cuidados durante a recuperação.</p>
+      <a href="https://www.vakinha.com.br/6242289" target="_blank" class="btn-help">QUERO AJUDAR O TUTI</a>
+    </div>
 
-    <p>Por isso, minha família decidiu criar esta vaquinha para pedir a ajuda de vocês.</p>
-
-    <p>Qualquer valor, por menor que seja, fará uma enorme diferença para nós. Se você não puder contribuir financeiramente, compartilhar esta vaquinha também já será uma grande ajuda.</p>
-
-    <p>Neste momento, tudo o que queremos é ter a chance de trazer o nosso Tuti de volta para casa. 🐾❤️</p>
-
-    <p>Agradecemos de coração a todos que puderem ajudar, compartilhar, enviar uma mensagem de carinho ou simplesmente torcer pela recuperação dele.</p>
-
-    <p>Por favor, torçam pelo Tuti. Ele está lutando, e nós estamos lutando junto com ele. 🙏❤️🐶</p>
-
-    <p>Muito obrigada por todo carinho e apoio.</p>
-
-    <a href="https://www.vakinha.com.br/6242289" target="_blank" class="btn-help">QUERO AJUDAR O TUTI</a>
+    <p>Qualquer valor faz uma enorme diferença. Se não puder doar, compartilhe esta página!</p>
+    
+    <p style="text-align: center; font-size: 14px; color: #666;">Muito obrigada por todo carinho e apoio. 🙏🐶</p>
   </div>
+
+  <script>
+    // Script simples pra selecionar o valor
+    const btns = document.querySelectorAll('.amount-btn');
+    const input = document.querySelector('.custom-amount');
+
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        input.value = btn.innerText.replace('R$ ', '');
+      });
+    });
+  </script>
 
 </body>
 </html>
