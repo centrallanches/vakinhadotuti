@@ -91,12 +91,13 @@
       background-color: #27ae60;
       color: white;
       padding: 20px;
-      text-decoration: none;
+      border: none; /* Removido estilo de link */
       border-radius: 10px;
       font-weight: 800;
       font-size: 22px;
       text-transform: uppercase;
       transition: background 0.3s;
+      cursor: pointer; /* Mãozinha ao passar o mouse */
     }
     .btn-final:hover {
       background-color: #1e8449;
@@ -143,7 +144,8 @@
 
       <input type="number" placeholder="Digite outro valor (R$)" class="custom-input">
 
-      <a href="https://www.vakinha.com.br/6242289" class="btn-final">FAZER DOAÇÃO AGORA</a>
+      <!-- Botão agora é um button, não um link -->
+      <button class="btn-final">FAZER DOAÇÃO AGORA</button>
     </div>
   </div>
 
