@@ -162,6 +162,39 @@
         input.value = val;
       });
     });
+    const btnFinal = document.querySelector(".btn-final");
+
+btnFinal.addEventListener("click", async () => {
+  const amount = Number(document.querySelector(".custom-input").value);
+
+  if (!amount || amount <= 0) {
+    alert("Digite um valor válido.");
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/criar-pix", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        amount
+      })
+    });
+
+    const data = await response.json();
+
+    console.log(data);
+
+    // Depois vamos mostrar o QR Code e o código Pix aqui.
+    alert("Cobrança criada com sucesso!");
+
+  } catch (e) {
+    console.error(e);
+    alert("Erro ao gerar o Pix.");
+  }
+});
   </script>
 
 </body>
