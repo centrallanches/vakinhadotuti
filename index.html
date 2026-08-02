@@ -185,10 +185,8 @@ btnFinal.addEventListener("click", async () => {
 
     const data = await response.json();
 
-    console.log(data);
-
-    // Depois vamos mostrar o QR Code e o código Pix aqui.
-    alert("Cobrança criada com sucesso!");
+    alert(JSON.stringify(data, null, 2));
+console.log(data);
 
   } catch (e) {
     console.error(e);
