@@ -1,1 +1,188 @@
-<!DOCTYPE html><html lang="pt-BR"><head>  <meta charset="UTF-8">  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>Ajude o Tuti a voltar para casa 🐾</title>  <style>    body {      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;      background-color: #ffffff;      color: #333;      margin: 0;      padding: 0;      line-height: 1.6;    }    .hero-image {      width: 100%;      height: auto;      display: block;    }    .content {      max-width: 700px;      margin: 0 auto;      padding: 30px 20px;    }    h1 {      color: #d32f2f;      font-size: 32px;      font-weight: 800;      text-align: center;      margin-bottom: 30px;      text-transform: uppercase;    }    p {      font-size: 19px;      font-weight: 600;      margin-bottom: 25px;      text-align: justify;      color: #222;    }        /* Caixa de Doação Final */    .donation-section {      background-color: #f0fdf4;      border: 2px solid #27ae60;      border-radius: 15px;      padding: 30px;      margin-top: 50px;      text-align: center;      box-shadow: 0 10px 25px rgba(39, 174, 96, 0.15);    }    .donation-title {      font-size: 24px;      font-weight: 800;      color: #27ae60;      margin-bottom: 20px;    }    .amount-grid {      display: grid;      grid-template-columns: repeat(2, 1fr);      gap: 10px;      margin-bottom: 20px;    }    .amount-btn {      background: white;      border: 2px solid #27ae60;      color: #27ae60;      padding: 15px;      border-radius: 10px;      font-weight: bold;      font-size: 18px;      cursor: pointer;    }    .amount-btn:hover, .amount-btn.active {      background: #27ae60;      color: white;    }    .custom-input {      width: 100%;      padding: 15px;      border: 2px solid #ddd;      border-radius: 10px;      font-size: 18px;      text-align: center;      margin-bottom: 20px;      box-sizing: border-box;    }    .btn-final {      display: block;      width: 100%;      background-color: #27ae60;      color: white;      padding: 20px;      border: none; /* Removido estilo de link */      border-radius: 10px;      font-weight: 800;      font-size: 22px;      text-transform: uppercase;      transition: background 0.3s;      cursor: pointer; /* Mãozinha ao passar o mouse */    }    .btn-final:hover {      background-color: #1e8449;    }  </style></head><body>  <img src="file_000000003a78820e8423b35f675465ab.png" alt="Tuti no hospital" class="hero-image">  <div class="content">    <h1>Ajude o Tuti a voltar para casa 🐾❤️</h1>    <p>Oi, pessoal. Eu sou o Tuti, um Bulldog Francês muito amado e querido pela minha família. ❤️</p>    <p>Nos últimos dias, minha família passou por um momento muito difícil e inesperado. Eu comecei a apresentar um quadro grave de saúde e precisei ser internado às pressas. Meu estado se agravou e, neste momento, estou entubado e sedado, recebendo cuidados intensivos e lutando pela minha vida.</p>    <p>Ainda não temos previsão de alta. Minha família está fazendo tudo o que pode para que eu tenha acesso a todo o tratamento necessário, mas os custos estão ficando muito altos.</p>    <p>A diária da internação hospitalar é de aproximadamente R$ 3.000, além dos gastos com medicamentos, insumos, anestesias e todos os procedimentos necessários durante a internação. O transporte em ambulância veterinária também gera custos. E, quando eu finalmente puder sair do hospital, ainda precisarei de acompanhamento veterinário e cuidados durante a recuperação.</p>    <p>Por isso, minha família decidiu criar esta vaquinha para pedir a ajuda de vocês.</p>    <p>Qualquer valor, por menor que seja, fará uma enorme diferença para nós. Se você não puder contribuir financeiramente, compartilhar esta vaquinha também já será uma grande ajuda.</p>    <p>Neste momento, tudo o que queremos é ter a chance de trazer o nosso Tuti de volta para casa. 🐾❤️</p>    <p>Agradecemos de coração a todos que puderem ajudar, compartilhar, enviar uma mensagem de carinho ou simplesmente torcer pela recuperação dele.</p>    <p>Por favor, torçam pelo Tuti. Ele está lutando, e nós estamos lutando junto com ele. 🙏❤️🐶</p>    <p>Muito obrigada por todo carinho e apoio.</p>    <!-- Área de Doação no Final -->    <div class="donation-section">      <div class="donation-title">Escolha um valor para doar:</div>            <div class="amount-grid">        <button class="amount-btn">R$ 25,00</button>        <button class="amount-btn">R$ 50,00</button>        <button class="amount-btn">R$ 100,00</button>        <button class="amount-btn">R$ 200,00</button>      </div>      <input type="number" placeholder="Digite outro valor (R$)" class="custom-input">      <!-- Botão agora é um button, não um link -->      <button class="btn-final">FAZER DOAÇÃO AGORA</button>    </div>  </div>  <script>    const btns = document.querySelectorAll('.amount-btn');    const input = document.querySelector('.custom-input');    btns.forEach(btn => {      btn.addEventListener('click', () => {        btns.forEach(b => b.classList.remove('active'));        btn.classList.add('active');        // Pega só o número do botão        let val = btn.innerText.replace('R$ ', '').replace('.', '').replace(',', '.');        input.value = val;      });    });    const btnFinal = document.querySelector(".btn-final");btnFinal.addEventListener("click", async () => {  const amount = Number(document.querySelector(".custom-input").value);  if (!amount || amount <= 0) {    alert("Digite um valor válido.");    return;  }  try {    const response = await fetch("/api/criar-pix", {      method: "POST",      headers: {        "Content-Type": "application/json"      },      body: JSON.stringify({        amount      })    });    const data = await response.json();    alert(JSON.stringify(data, null, 2));console.log(data);  } catch (e) {    console.error(e);    alert("Erro ao gerar o Pix.");  }});  </script></body></html>
+<!DOCTYPE html>  <html lang="pt-BR">  
+<head>  
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <title>Ajude o Tuti a voltar para casa 🐾</title>  
+  <style>  
+    body {  
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+      background-color: #ffffff;  
+      color: #333;  
+      margin: 0;  
+      padding: 0;  
+      line-height: 1.6;  
+    }  
+    .hero-image {  
+      width: 100%;  
+      height: auto;  
+      display: block;  
+    }  
+    .content {  
+      max-width: 700px;  
+      margin: 0 auto;  
+      padding: 30px 20px;  
+    }  
+    h1 {  
+      color: #d32f2f;  
+      font-size: 32px;  
+      font-weight: 800;  
+      text-align: center;  
+      margin-bottom: 30px;  
+      text-transform: uppercase;  
+    }  
+    p {  
+      font-size: 19px;  
+      font-weight: 600;  
+      margin-bottom: 25px;  
+      text-align: justify;  
+      color: #222;  
+    }  /* Caixa de Doação Final */  
+.donation-section {  
+  background-color: #f0fdf4;  
+  border: 2px solid #27ae60;  
+  border-radius: 15px;  
+  padding: 30px;  
+  margin-top: 50px;  
+  text-align: center;  
+  box-shadow: 0 10px 25px rgba(39, 174, 96, 0.15);  
+}  
+.donation-title {  
+  font-size: 24px;  
+  font-weight: 800;  
+  color: #27ae60;  
+  margin-bottom: 20px;  
+}  
+.amount-grid {  
+  display: grid;  
+  grid-template-columns: repeat(2, 1fr);  
+  gap: 10px;  
+  margin-bottom: 20px;  
+}  
+.amount-btn {  
+  background: white;  
+  border: 2px solid #27ae60;  
+  color: #27ae60;  
+  padding: 15px;  
+  border-radius: 10px;  
+  font-weight: bold;  
+  font-size: 18px;  
+  cursor: pointer;  
+}  
+.amount-btn:hover, .amount-btn.active {  
+  background: #27ae60;  
+  color: white;  
+}  
+.custom-input {  
+  width: 100%;  
+  padding: 15px;  
+  border: 2px solid #ddd;  
+  border-radius: 10px;  
+  font-size: 18px;  
+  text-align: center;  
+  margin-bottom: 20px;  
+  box-sizing: border-box;  
+}  
+.btn-final {  
+  display: block;  
+  width: 100%;  
+  background-color: #27ae60;  
+  color: white;  
+  padding: 20px;  
+  border: none; /* Removido estilo de link */  
+  border-radius: 10px;  
+  font-weight: 800;  
+  font-size: 22px;  
+  text-transform: uppercase;  
+  transition: background 0.3s;  
+  cursor: pointer; /* Mãozinha ao passar o mouse */  
+}  
+.btn-final:hover {  
+  background-color: #1e8449;  
+}
+
+  </style>  
+</head>  
+<body>    <img src="file_000000003a78820e8423b35f675465ab.png" alt="Tuti no hospital" class="hero-image">    <div class="content">  
+    <h1>Ajude o Tuti a voltar para casa 🐾❤️</h1>  <p>Oi, pessoal. Eu sou o Tuti, um Bulldog Francês muito amado e querido pela minha família. ❤️</p>  
+
+<p>Nos últimos dias, minha família passou por um momento muito difícil e inesperado. Eu comecei a apresentar um quadro grave de saúde e precisei ser internado às pressas. Meu estado se agravou e, neste momento, estou entubado e sedado, recebendo cuidados intensivos e lutando pela minha vida.</p>  
+
+<p>Ainda não temos previsão de alta. Minha família está fazendo tudo o que pode para que eu tenha acesso a todo o tratamento necessário, mas os custos estão ficando muito altos.</p>  
+
+<p>A diária da internação hospitalar é de aproximadamente R$ 3.000, além dos gastos com medicamentos, insumos, anestesias e todos os procedimentos necessários durante a internação. O transporte em ambulância veterinária também gera custos. E, quando eu finalmente puder sair do hospital, ainda precisarei de acompanhamento veterinário e cuidados durante a recuperação.</p>  
+
+<p>Por isso, minha família decidiu criar esta vaquinha para pedir a ajuda de vocês.</p>  
+
+<p>Qualquer valor, por menor que seja, fará uma enorme diferença para nós. Se você não puder contribuir financeiramente, compartilhar esta vaquinha também já será uma grande ajuda.</p>  
+
+<p>Neste momento, tudo o que queremos é ter a chance de trazer o nosso Tuti de volta para casa. 🐾❤️</p>  
+
+<p>Agradecemos de coração a todos que puderem ajudar, compartilhar, enviar uma mensagem de carinho ou simplesmente torcer pela recuperação dele.</p>  
+
+<p>Por favor, torçam pelo Tuti. Ele está lutando, e nós estamos lutando junto com ele. 🙏❤️🐶</p>  
+
+<p>Muito obrigada por todo carinho e apoio.</p>  
+
+<!-- Área de Doação no Final -->  
+<div class="donation-section">  
+  <div class="donation-title">Escolha um valor para doar:</div>  
+    
+  <div class="amount-grid">  
+    <button class="amount-btn">R$ 25,00</button>  
+    <button class="amount-btn">R$ 50,00</button>  
+    <button class="amount-btn">R$ 100,00</button>  
+    <button class="amount-btn">R$ 200,00</button>  
+  </div>  
+
+  <input type="number" placeholder="Digite outro valor (R$)" class="custom-input">  
+
+  <!-- Botão agora é um button, não um link -->  
+  <button class="btn-final">FAZER DOAÇÃO AGORA</button>  
+</div>
+
+  </div>    <script>  
+    const btns = document.querySelectorAll('.amount-btn');  
+    const input = document.querySelector('.custom-input');  
+  
+    btns.forEach(btn => {  
+      btn.addEventListener('click', () => {  
+        btns.forEach(b => b.classList.remove('active'));  
+        btn.classList.add('active');  
+        // Pega só o número do botão  
+        let val = btn.innerText.replace('R$ ', '').replace('.', '').replace(',', '.');  
+        input.value = val;  
+      });  
+    });  
+    const btnFinal = document.querySelector(".btn-final");  
+  
+btnFinal.addEventListener("click", async () => {  
+  const amount = Number(document.querySelector(".custom-input").value);  
+  
+  if (!amount || amount <= 0) {  
+    alert("Digite um valor válido.");  
+    return;  
+  }  
+  
+  try {  
+    const response = await fetch("/api/criar-pix", {  
+      method: "POST",  
+      headers: {  
+        "Content-Type": "application/json"  
+      },  
+      body: JSON.stringify({  
+        amount  
+      })  
+    });  
+  
+    const data = await response.json();  
+  
+    alert(JSON.stringify(data, null, 2));  
+console.log(data);  
+  
+  } catch (e) {  
+    console.error(e);  
+    alert("Erro ao gerar o Pix.");  
+  }  
+});  
+  </script>  </body>  
+</html>
