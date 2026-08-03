@@ -192,7 +192,14 @@ const pix =
 
 const qr = data.transaction?.qrCodeBase64;
 
-const nova = window.open("", "_blank");
+document.getElementById("pix-area").style.display = "block";
+document.getElementById("pix-qr").src = qr;
+document.getElementById("pix-code").value = pix;
+
+document.getElementById("copy-pix").onclick = () => {
+  navigator.clipboard.writeText(pix);
+  alert("PIX copiado!");
+};
 
 nova.document.write(`
 <!DOCTYPE html>
