@@ -200,14 +200,17 @@ document.getElementById("copy-pix").onclick = () => {
   navigator.clipboard.writeText(pix);
   alert("PIX copiado!");
 };
+const qr = data.transaction?.qrCodeBase64;
 
-nova.document.write(`
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pagamento PIX</title>
+document.getElementById("pix-area").style.display = "block";
+document.getElementById("pix-qr").src = qr;
+document.getElementById("pix-code").value = pix;
+
+document.getElementById("copy-pix").onclick = () => {
+  navigator.clipboard.writeText(pix);
+  alert("PIX copiado!");
+};
+
 <style>
 body{
   margin:0;
