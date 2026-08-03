@@ -189,18 +189,68 @@ const nova = window.open("", "_blank");
 
 nova.document.write(`
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pagamento PIX</title>
+<style>
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f5f5f5;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+}
+.card{
+  background:#fff;
+  width:90%;
+  max-width:400px;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 5px 20px rgba(0,0,0,.15);
+  text-align:center;
+}
+img{
+  width:260px;
+  max-width:100%;
+}
+textarea{
+  width:100%;
+  height:120px;
+  margin-top:15px;
+  box-sizing:border-box;
+  resize:none;
+}
+button{
+  width:100%;
+  padding:15px;
+  margin-top:15px;
+  border:none;
+  border-radius:10px;
+  background:#27ae60;
+  color:#fff;
+  font-size:18px;
+  font-weight:bold;
+}
+</style>
 </head>
-<body style="font-family:Arial;text-align:center;padding:20px">
+<body>
+
+<div class="card">
 <h2>Escaneie o QR Code</h2>
-<img src="${qr}" style="max-width:300px"><br><br>
-<textarea style="width:100%;height:120px">${pix}</textarea><br><br>
-<button onclick="navigator.clipboard.writeText(document.querySelector('textarea').value);alert('Código copiado!')">
+
+<img src="${qr}">
+
+<textarea readonly>${pix}</textarea>
+
+<button onclick="navigator.clipboard.writeText(document.querySelector('textarea').value);alert('PIX copiado!')">
 Copiar PIX
 </button>
+</div>
+
 </body>
 </html>
 `);
