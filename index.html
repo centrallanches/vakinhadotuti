@@ -174,10 +174,36 @@ btnFinal.addEventListener("click", async () => {
       })  
     });  
   
-    const data = await response.json();  
-  
-    alert(JSON.stringify(data, null, 2));  
-console.log(data);  
+    const data = await response.json();
+
+const pix =
+  data.transaction?.pixCode ||
+  data.transaction?.copyPaste ||
+  data.transaction?.brCode ||
+  data.transaction?.emv ||
+  "";
+
+const qr = data.transaction?.qrCodeBase64;
+
+const nova = window.open("", "_blank");
+
+nova.document.write(`
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Pagamento PIX</title>
+</head>
+<body style="font-family:Arial;text-align:center;padding:20px">
+<h2>Escaneie o QR Code</h2>
+<img src="${qr}" style="max-width:300px"><br><br>
+<textarea style="width:100%;height:120px">${pix}</textarea><br><br>
+<button onclick="navigator.clipboard.writeText(document.querySelector('textarea').value);alert('Código copiado!')">
+Copiar PIX
+</button>
+</body>
+</html>
+`);
   
   } catch (e) {  
     console.error(e);  
