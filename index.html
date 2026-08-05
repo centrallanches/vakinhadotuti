@@ -59,7 +59,15 @@ text-align:center;
 font-size:24px;
 font-weight:800;
 color:#27ae60;
+margin-bottom:10px;
+}
+
+.min-value-text{
+text-align:center;
+font-size:14px;
+color:#666;
 margin-bottom:20px;
+font-weight:600;
 }
 
 .amount-grid{
@@ -145,6 +153,59 @@ font-size:18px;
 font-weight:bold;
 cursor:pointer;
 }
+
+/* Estilos do Modal de Alerta Personalizado */
+#custom-alert-overlay {
+    display: none; /* Oculto por padrão */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fundo escuro transparente */
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+#custom-alert-box {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    max-width: 90%;
+    width: 350px;
+    border: 2px solid #d32f2f; /* Borda vermelha para atenção */
+}
+
+#custom-alert-icon {
+    font-size: 40px;
+    color: #d32f2f;
+    margin-bottom: 15px;
+}
+
+#custom-alert-msg {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#custom-alert-btn {
+    background: #d32f2f;
+    color: #fff;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#custom-alert-btn:hover {
+    background: #b71c1c;
+}
 </style>
 <style>canvas{max-width:100%;height:auto}img{max-width:100%}</style></head>
 
@@ -178,6 +239,10 @@ cursor:pointer;
 
 <div class="donation-title">
 Escolha um valor para doar:
+</div>
+
+<div class="min-value-text">
+Valor mínimo: R$ 10,00
 </div>
 
 <div class="amount-grid">
@@ -217,8 +282,39 @@ Copiar PIX
 
 </div>
 
+<!-- Estrutura do Modal de Alerta -->
+<div id="custom-alert-overlay">
+    <div id="custom-alert-box">
+        <div id="custom-alert-icon">⚠️</div>
+        <div id="custom-alert-msg">Valor indisponível.<br>Valor mínimo: R$ 10,00</div>
+        <button id="custom-alert-btn">Entendi</button>
+    </div>
+</div>
+
 <script>const btns = document.querySelectorAll(".amount-btn");
 const input = document.querySelector(".custom-input");
+
+// Elementos do Modal
+const alertOverlay = document.getElementById("custom-alert-overlay");
+const alertBtn = document.getElementById("custom-alert-btn");
+
+// Função para mostrar o alerta personalizado
+function showCustomAlert(message) {
+    document.getElementById("custom-alert-msg").innerHTML = message;
+    alertOverlay.style.display = "flex";
+}
+
+// Fechar modal ao clicar no botão
+alertBtn.addEventListener("click", () => {
+    alertOverlay.style.display = "none";
+});
+
+// Fechar modal ao clicar fora da caixa branca
+alertOverlay.addEventListener("click", (e) => {
+    if (e.target === alertOverlay) {
+        alertOverlay.style.display = "none";
+    }
+});
 
 btns.forEach(btn => {
   btn.addEventListener("click", () => {
@@ -238,9 +334,9 @@ btnFinal.addEventListener("click", async () => {
 
   const amount = Number(input.value);
 
-  // Validação de valor mínimo de R$ 10,00
+  // Validação de valor mínimo de R$ 10,00 com Alerta Visual
   if (!amount || amount < 10) {
-    alert("Valor indisponível");
+    showCustomAlert("Valor indisponível.<br>O valor mínimo para doação é <strong>R$ 10,00</strong>.");
     return;
   }
 
@@ -272,7 +368,7 @@ btnFinal.addEventListener("click", async () => {
       "";
 
     if (!qr) {
-      alert("Não foi possível gerar o QR Code.");
+      showCustomAlert("Não foi possível gerar o QR Code.");
       return;
     }
 
@@ -282,12 +378,12 @@ btnFinal.addEventListener("click", async () => {
 
     document.getElementById("copy-pix").onclick = async () => {
       if (!pix) {
-        alert("Código PIX não disponível.");
+        showCustomAlert("Código PIX não disponível.");
         return;
       }
 
       await navigator.clipboard.writeText(pix);
-      alert("PIX copiado!");
+      showCustomAlert("PIX copiado com sucesso!");
     };
 
     document.getElementById("pix-area").scrollIntoView({
@@ -296,7 +392,7 @@ btnFinal.addEventListener("click", async () => {
 
   } catch (e) {
     console.error(e);
-    alert("Erro ao gerar o Pix.");
+    showCustomAlert("Erro ao gerar o Pix. Tente novamente.");
   }
 
 });
